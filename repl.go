@@ -49,7 +49,7 @@ func getCommands() map[string]cliCommand {
 			callback:    commandExit,
 		},
 		"help": {
-			name:        "exit",
+			name:        "help",
 			description: "Displays a help message",
 			callback:    commandHelp,
 		},
