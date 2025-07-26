@@ -31,7 +31,9 @@ func StartRepl() {
 			}
 			continue
 		} else {
+			fmt.Println()
 			fmt.Println("Unknown command")
+			fmt.Println()
 		}
 	}
 }

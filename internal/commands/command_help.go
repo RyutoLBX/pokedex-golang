@@ -5,9 +5,11 @@ import (
 )
 
 func CommandHelp(_ *Config) error {
+	fmt.Println()
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Println("Usage:")
-	fmt.Println()
+
+	defer fmt.Println()
 
 	commands := GetCommands()
 	for _, command := range commands {

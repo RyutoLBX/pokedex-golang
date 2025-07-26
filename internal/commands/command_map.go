@@ -7,15 +7,18 @@ import (
 	"github.com/RyutoLBX/pokedexcli/internal/pokeapi"
 )
 
-func CommandMap(c *Config) error {
-	if c.Next == nil {
+func CommandMap(config *Config) error {
+	fmt.Println()
+	defer fmt.Println()
+	if config.Next == nil {
 		fmt.Println("You are on the last page of the map!")
+
 		return nil
 	}
 
 	client := pokeapi.NewClient(5 * time.Second)
 
-	locationAreas, err := client.ListLocationArea(c.Next)
+	locationAreas, err := client.ListLocationArea(config.Next)
 	if err != nil {
 		return err
 	}
@@ -24,8 +27,8 @@ func CommandMap(c *Config) error {
 		fmt.Println(locationArea.Name)
 	}
 
-	c.Next = locationAreas.Next
-	c.Previous = locationAreas.Previous
+	config.Next = locationAreas.Next
+	config.Previous = locationAreas.Previous
 
 	return nil
 }
