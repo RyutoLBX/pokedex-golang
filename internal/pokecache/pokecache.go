@@ -1,7 +1,6 @@
 package pokecache
 
 import (
-	"fmt"
 	"sync"
 	"time"
 )
@@ -31,7 +30,6 @@ func (c *Cache) Add(key string, val []byte) {
 	copy(copiedVal, val)
 	newEntry := cacheEntry{createdAt: time.Now(), val: copiedVal}
 	c.entry[key] = newEntry
-	fmt.Println("Entry added to cache!")
 }
 
 func (c *Cache) tryGet(key string) ([]byte, bool) {
@@ -50,8 +48,26 @@ func (c *Cache) tryGet(key string) ([]byte, bool) {
 	copiedVal := make([]byte, len(entry.val))
 	copy(copiedVal, entry.val)
 
-	fmt.Println("Entry gotten from cache!")
 	return copiedVal, true
+}
+
+func (c *Cache) Get(key string, fetch func(string) ([]byte, error)) ([]byte, error) {
+	val, exists := c.tryGet(key)
+
+	if exists {
+		return val, nil
+	}
+
+	val, err := fetch(key)
+	if err != nil {
+		return nil, err
+	}
+
+	c.mu.Lock()
+	c.Add(key, val)
+	c.mu.Unlock()
+
+	return val, nil
 }
 
 func (c *Cache) reapLoop() {
