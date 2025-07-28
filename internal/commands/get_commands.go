@@ -1,5 +1,6 @@
 package commands
 
+// Gives a dictionary of available commands
 func GetCommands() map[string]cliCommand {
 	return map[string]cliCommand{
 		"exit": {

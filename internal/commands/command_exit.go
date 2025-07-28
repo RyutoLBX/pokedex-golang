@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// Exits the REPL loop
 func CommandExit(_ *Config) error {
 	fmt.Println()
 	fmt.Println("Closing the Pokedex... Goodbye!")

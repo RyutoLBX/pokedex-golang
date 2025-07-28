@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// Prints out a list of commands and their descriptions
 func CommandHelp(_ *Config) error {
 	fmt.Println()
 	fmt.Println("Welcome to the Pokedex!")
