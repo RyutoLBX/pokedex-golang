@@ -7,9 +7,9 @@ import (
 	"github.com/RyutoLBX/pokedexcli/internal/pokeapi"
 )
 
-// Prints out a list of area names
-// By default gives 20 pages at a time
-// Will stop at last page
+// Prints out a list of area names and goes forwards.
+// By default gives 20 pages at a time.
+// Will stop at last page.
 func CommandMap(config *Config) error {
 	fmt.Println()
 	defer fmt.Println()
