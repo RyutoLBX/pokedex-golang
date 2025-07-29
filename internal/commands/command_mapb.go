@@ -7,10 +7,10 @@ import (
 	"github.com/RyutoLBX/pokedexcli/internal/pokeapi"
 )
 
-// Prints out a list of area names and goes backwards.
+// CommandMapb prints out a list of area names and goes backwards.
 // By default gives 20 pages at a time.
 // Will stop at first page.
-func CommandMapb(config *Config) error {
+func CommandMapb(config *Config, _ []string) error {
 	if config.Previous == nil {
 		fmt.Println("You are on the first page of the map!")
 		return nil

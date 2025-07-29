@@ -1,6 +1,7 @@
 package pokecache
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -48,6 +49,8 @@ func (c *Cache) tryGet(key string) ([]byte, bool) {
 	copiedVal := make([]byte, len(entry.val))
 	copy(copiedVal, entry.val)
 
+	fmt.Println("value gotten from cache!")
+
 	return copiedVal, true
 }
 
@@ -63,9 +66,7 @@ func (c *Cache) Get(key string, fetch func(string) ([]byte, error)) ([]byte, err
 		return nil, err
 	}
 
-	c.mu.Lock()
 	c.Add(key, val)
-	c.mu.Unlock()
 
 	return val, nil
 }
@@ -86,7 +87,6 @@ func (c *Cache) reapLoop() {
 func (c *Cache) reap() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-
 	for key, entry := range c.entry {
 		if time.Since(entry.createdAt) > c.ttl {
 			delete(c.entry, key)

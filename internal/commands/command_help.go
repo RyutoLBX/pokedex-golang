@@ -4,8 +4,8 @@ import (
 	"fmt"
 )
 
-// Prints out a list of commands and their descriptions.
-func CommandHelp(_ *Config) error {
+// CommandHelp prints out a list of commands and their descriptions.
+func CommandHelp(_ *Config, _ []string) error {
 	fmt.Println()
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Println("Usage:")

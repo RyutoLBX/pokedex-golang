@@ -1,6 +1,6 @@
 package commands
 
-// Gives a dictionary of available commands.
+// GetCommands returns a dictionary of available commands.
 func GetCommands() map[string]cliCommand {
 	return map[string]cliCommand{
 		"exit": {
@@ -22,6 +22,11 @@ func GetCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "Lists previous location areas",
 			Callback:    CommandMapb,
+		},
+		"explore": {
+			name:        "explore [area]",
+			description: "Lists pokemon in a certain area",
+			Callback:    CommandExplore,
 		},
 	}
 }

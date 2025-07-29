@@ -1,27 +1,38 @@
 package commands
 
 import (
+	"encoding/json"
 	"fmt"
-	"time"
 
 	"github.com/RyutoLBX/pokedexcli/internal/pokeapi"
 )
 
-// Prints out a list of area names and goes forwards.
+// CommandMap prints out a list of area names and goes forwards.
 // By default gives 20 pages at a time.
 // Will stop at last page.
-func CommandMap(config *Config) error {
+func CommandMap(config *Config, _ []string) error {
 	fmt.Println()
 	defer fmt.Println()
+
 	if config.Next == nil {
 		fmt.Println("You are on the last page of the map!")
-
 		return nil
 	}
 
-	client := pokeapi.NewClient(5 * time.Second)
+	data, err := config.MapCache.Get(*config.Next, pokeapi.Fetch)
+	if err != nil {
+		return err
+	}
 
-	locationAreas, err := client.ListLocationArea(config.Next)
+	// client := pokeapi.NewClient(5 * time.Second)
+
+	// locationAreas, err := client.ListLocationArea(config.Next)
+	// if err != nil {
+	// 	return err
+	// }
+
+	locationAreas := pokeapi.LocationAreaShallow{}
+	err = json.Unmarshal(data, &locationAreas)
 	if err != nil {
 		return err
 	}
