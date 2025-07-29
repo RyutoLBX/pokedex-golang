@@ -24,13 +24,6 @@ func CommandMap(config *Config, _ []string) error {
 		return err
 	}
 
-	// client := pokeapi.NewClient(5 * time.Second)
-
-	// locationAreas, err := client.ListLocationArea(config.Next)
-	// if err != nil {
-	// 	return err
-	// }
-
 	locationAreas := pokeapi.LocationAreaShallow{}
 	err = json.Unmarshal(data, &locationAreas)
 	if err != nil {

@@ -49,8 +49,6 @@ func (c *Cache) tryGet(key string) ([]byte, bool) {
 	copiedVal := make([]byte, len(entry.val))
 	copy(copiedVal, entry.val)
 
-	fmt.Println("value gotten from cache!")
-
 	return copiedVal, true
 }
 
@@ -58,6 +56,7 @@ func (c *Cache) Get(key string, fetch func(string) ([]byte, error)) ([]byte, err
 	val, exists := c.tryGet(key)
 
 	if exists {
+		fmt.Println("value gotten from cache!")
 		return val, nil
 	}
 

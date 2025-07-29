@@ -17,10 +17,10 @@ func StartRepl() {
 	config := &cm.Config{Next: nil, Previous: nil}
 	config.Next = hp.Ptr("https://pokeapi.co/api/v2/location-area?offset=0&limit=20")
 
-	mapCache := pokecache.NewCache(5 * time.Second)
+	mapCache := pokecache.NewCache(5 * time.Minute)
 	config.MapCache = mapCache
 
-	exploreCache := pokecache.NewCache(5 * time.Second)
+	exploreCache := pokecache.NewCache(5 * time.Minute)
 	config.ExploreCache = exploreCache
 
 	// REPL loop

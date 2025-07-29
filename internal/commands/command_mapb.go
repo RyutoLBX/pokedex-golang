@@ -1,8 +1,8 @@
 package commands
 
 import (
+	"encoding/json"
 	"fmt"
-	"time"
 
 	"github.com/RyutoLBX/pokedexcli/internal/pokeapi"
 )
@@ -11,14 +11,21 @@ import (
 // By default gives 20 pages at a time.
 // Will stop at first page.
 func CommandMapb(config *Config, _ []string) error {
+	fmt.Println()
+	defer fmt.Println()
+
 	if config.Previous == nil {
 		fmt.Println("You are on the first page of the map!")
 		return nil
 	}
 
-	client := pokeapi.NewClient(5 * time.Second)
+	data, err := config.MapCache.Get(*config.Previous, pokeapi.Fetch)
+	if err != nil {
+		return err
+	}
 
-	locationAreas, err := client.ListLocationArea(config.Previous)
+	locationAreas := pokeapi.LocationAreaShallow{}
+	err = json.Unmarshal(data, &locationAreas)
 	if err != nil {
 		return err
 	}
