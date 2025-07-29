@@ -8,19 +8,24 @@ import (
 
 	cm "github.com/RyutoLBX/pokedexcli/internal/commands"
 	hp "github.com/RyutoLBX/pokedexcli/internal/helpers"
-	"github.com/RyutoLBX/pokedexcli/internal/pokecache"
+	pkc "github.com/RyutoLBX/pokedexcli/internal/pokecache"
 )
 
 // StartRepl initiates the PokedexCLI REPL loop.
 func StartRepl() {
+	// Scanner init
 	scanner := bufio.NewScanner(os.Stdin)
+
+	// Config init
 	config := &cm.Config{Next: nil, Previous: nil}
 	config.Next = hp.Ptr("https://pokeapi.co/api/v2/location-area?offset=0&limit=20")
 
-	mapCache := pokecache.NewCache(5 * time.Minute)
+	// Map cache init
+	mapCache := pkc.NewCache(5 * time.Minute)
 	config.MapCache = mapCache
 
-	exploreCache := pokecache.NewCache(5 * time.Minute)
+	// Explore cache init
+	exploreCache := pkc.NewCache(5 * time.Minute)
 	config.ExploreCache = exploreCache
 
 	// REPL loop
@@ -33,9 +38,10 @@ func StartRepl() {
 			continue
 		}
 
+		// Split input into commandName and params
 		commandName, params := words[0], words[1:]
 
-		// Handle command (first word)
+		// Determine command name
 		commands := cm.GetCommands()
 		command, exists := commands[commandName]
 

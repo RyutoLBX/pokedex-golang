@@ -14,7 +14,11 @@ func CommandHelp(_ *Config, _ []string) error {
 
 	commands := GetCommands()
 	for _, command := range commands {
-		fmt.Printf("%s: %s\n", command.name, command.description)
+		fmt.Printf("%s", command.name)
+		for _, param := range command.params {
+			fmt.Printf(" [%s]", param)
+		}
+		fmt.Printf(": %s\n", command.description)
 	}
 	return nil
 }
