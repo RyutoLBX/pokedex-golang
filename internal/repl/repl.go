@@ -29,6 +29,10 @@ func StartRepl() {
 	exploreCache := pkc.NewCache(1 * time.Hour)
 	config.ExploreCache = exploreCache
 
+	// Explore cache init
+	exploreCache := pkc.NewCache(1 * time.Hour)
+	config.ExploreCache = exploreCache
+
 	// REPL loop
 	for {
 		fmt.Print("Pokedex > ")

@@ -19,7 +19,7 @@ func CommandCatch(config *Config, params []string) error {
 	}
 
 	locationName := params[0]
-	data, err := config.ExploreCache.Get(pokeapi.FormatPokemonURL(locationName), pokeapi.Fetch)
+	data, err := config.PokemonCache.Get(pokeapi.FormatPokemonURL(locationName), pokeapi.Fetch)
 	if err != nil {
 		return err
 	}

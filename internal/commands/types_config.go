@@ -11,4 +11,5 @@ type Config struct {
 	Previous     *string
 	MapCache     *pokecache.Cache
 	ExploreCache *pokecache.Cache
+	PokemonCache *pokecache.Cache
 }
