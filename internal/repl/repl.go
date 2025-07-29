@@ -2,7 +2,6 @@ package repl
 
 import (
 	"bufio"
-	"encoding/json"
 	"fmt"
 	"os"
 	"time"
@@ -19,22 +18,12 @@ func StartRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	// Config init
-	config := &cm.Config{Next: nil, Previous: nil}
+	config := &cm.Config{Next: nil, Previous: nil, Pokedex: pokeapi.NewPokedex()}
 	config.Next = hp.Ptr(pokeapi.FormatLocationAreaURL(0, 20))
 
 	// Map cache init
 	mapCache := pkc.NewCache(1 * time.Hour)
 	config.MapCache = mapCache
-	dataArea, err := config.MapCache.Get(pokeapi.FormatLocationAreaURL(0, 10000), pokeapi.Fetch)
-	if err != nil {
-		fmt.Println("Error:", err)
-	}
-
-	locationAreas := pokeapi.LocationAreaShallow{}
-	err = json.Unmarshal(dataArea, &locationAreas)
-	if err != nil {
-		fmt.Println("Error:", err)
-	}
 
 	// Explore cache init
 	exploreCache := pkc.NewCache(1 * time.Hour)

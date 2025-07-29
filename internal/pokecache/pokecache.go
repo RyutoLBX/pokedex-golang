@@ -1,7 +1,6 @@
 package pokecache
 
 import (
-	"fmt"
 	"sync"
 	"time"
 )
@@ -56,7 +55,6 @@ func (c *Cache) Get(key string, fetch func(string) ([]byte, error)) ([]byte, err
 	val, exists := c.tryGet(key)
 
 	if exists {
-		fmt.Println("value gotten from cache!")
 		return val, nil
 	}
 

@@ -9,3 +9,7 @@ func FormatLocationAreaURL(offset, limit int) string {
 func FormatExploreURL(locationName string) string {
 	return fmt.Sprintf("%s/location-area/%s", baseURL, locationName)
 }
+
+func FormatPokemonURL(pokemonName string) string {
+	return fmt.Sprintf("%s/pokemon/%s", baseURL, pokemonName)
+}
