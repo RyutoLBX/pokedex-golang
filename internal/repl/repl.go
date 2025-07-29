@@ -2,12 +2,14 @@ package repl
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
 	"time"
 
 	cm "github.com/RyutoLBX/pokedexcli/internal/commands"
 	hp "github.com/RyutoLBX/pokedexcli/internal/helpers"
+	"github.com/RyutoLBX/pokedexcli/internal/pokeapi"
 	pkc "github.com/RyutoLBX/pokedexcli/internal/pokecache"
 )
 
@@ -18,14 +20,24 @@ func StartRepl() {
 
 	// Config init
 	config := &cm.Config{Next: nil, Previous: nil}
-	config.Next = hp.Ptr("https://pokeapi.co/api/v2/location-area?offset=0&limit=20")
+	config.Next = hp.Ptr(pokeapi.FormatLocationAreaURL(0, 20))
 
 	// Map cache init
-	mapCache := pkc.NewCache(5 * time.Minute)
+	mapCache := pkc.NewCache(1 * time.Hour)
 	config.MapCache = mapCache
+	dataArea, err := config.MapCache.Get(pokeapi.FormatLocationAreaURL(0, 10000), pokeapi.Fetch)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	locationAreas := pokeapi.LocationAreaShallow{}
+	err = json.Unmarshal(dataArea, &locationAreas)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
 
 	// Explore cache init
-	exploreCache := pkc.NewCache(5 * time.Minute)
+	exploreCache := pkc.NewCache(1 * time.Hour)
 	config.ExploreCache = exploreCache
 
 	// REPL loop
@@ -53,7 +65,7 @@ func StartRepl() {
 			continue
 		} else {
 			fmt.Println()
-			fmt.Println("Unknown command")
+			fmt.Println("Error:", pokeapi.ErrUnknownCommand)
 			fmt.Println()
 		}
 	}

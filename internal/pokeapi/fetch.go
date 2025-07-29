@@ -22,10 +22,20 @@ func Fetch(url string) ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
+	// Check status code, if not OK then return error
+	if resp.StatusCode != http.StatusOK {
+		return nil, ErrStatusNotOK(resp.StatusCode)
+	}
+
 	// Read data from response
 	val, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+
+	// If data is undefined or empty then return error
+	if len(val) == 0 || string(val) == "undefined" {
+		return nil, ErrUndefinedResponse
 	}
 
 	return val, nil

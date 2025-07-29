@@ -7,12 +7,8 @@ import (
 )
 
 // ListLocations -
-func (c *Client) ListLocationArea(pageURL *string) (LocationAreaShallow, error) {
-	url := baseURL + "/location-area"
-	// If pageURL is specified then use it
-	if pageURL != nil {
-		url = *pageURL
-	}
+func (c *Client) GetLocationArea(offset, limit int) (LocationAreaShallow, error) {
+	url := FormatLocationAreaURL(offset, limit)
 
 	// Make new HTTP request
 	req, err := http.NewRequest("GET", url, nil)
