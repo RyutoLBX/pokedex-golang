@@ -29,9 +29,9 @@ func StartRepl() {
 	exploreCache := pkc.NewCache(1 * time.Hour)
 	config.ExploreCache = exploreCache
 
-	// Explore cache init
-	exploreCache := pkc.NewCache(1 * time.Hour)
-	config.ExploreCache = exploreCache
+	// Pokemon cache init
+	pokemonCache := pkc.NewCache(1 * time.Hour)
+	config.PokemonCache = pokemonCache
 
 	// REPL loop
 	for {

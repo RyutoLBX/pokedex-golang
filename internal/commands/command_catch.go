@@ -2,7 +2,6 @@ package commands
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"math"
 	"math/rand/v2"
@@ -15,7 +14,7 @@ func CommandCatch(config *Config, params []string) error {
 	defer fmt.Println()
 
 	if len(params) == 0 {
-		return errors.New("no pokemon name provided")
+		pokeapi.ErrNoParams("pokemon")
 	}
 
 	locationName := params[0]

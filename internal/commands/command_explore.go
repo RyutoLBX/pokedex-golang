@@ -2,7 +2,6 @@ package commands
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 
 	"github.com/RyutoLBX/pokedexcli/internal/pokeapi"
@@ -13,8 +12,9 @@ import (
 func CommandExplore(config *Config, params []string) error {
 	fmt.Println()
 	defer fmt.Println()
+
 	if len(params) == 0 {
-		return errors.New("no area name provided")
+		return pokeapi.ErrNoParams("area")
 	}
 
 	locationName := params[0]
