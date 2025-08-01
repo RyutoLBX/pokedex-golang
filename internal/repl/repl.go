@@ -54,6 +54,7 @@ func StartRepl() {
 			err := command.Callback(config, params)
 			if err != nil {
 				fmt.Println("Error:", err)
+				fmt.Println()
 			}
 			continue
 		} else {

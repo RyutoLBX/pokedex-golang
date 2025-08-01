@@ -33,8 +33,9 @@ func CommandCatch(config *Config, params []string) error {
 	threshold := CatchThresholdFunction(pokemon.BaseExperience)
 	if randomFloat > threshold {
 		// Catch successful
-		fmt.Printf("%s successfully caught!\n", pokemon.Name)
+		fmt.Printf("%s was successfully caught!\n", pokemon.Name)
 		config.Pokedex.AddToPokedex(pokemon)
+		fmt.Println("You may now inspect it with the inspect command.")
 	} else {
 		// Catch failed
 		fmt.Printf("Failed to catch %s...\n", pokemon.Name)
