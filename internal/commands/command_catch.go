@@ -36,7 +36,6 @@ func CommandCatch(config *Config, params []string) error {
 		// Catch successful
 		fmt.Printf("%s was successfully caught!\n", pokemon.Name)
 		config.Pokedex.AddToPokedex(pokemon)
-		fmt.Println("You may now inspect it with the inspect command.")
 	} else {
 		// Catch failed
 		fmt.Printf("%s escaped!\n", pokemon.Name)

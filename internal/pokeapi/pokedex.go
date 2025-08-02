@@ -11,6 +11,7 @@ func (p Pokedex) AddToPokedex(pokemon Pokemon) {
 	if !exists {
 		p.Pokemons[pokemon.Name] = pokemon
 		fmt.Printf("%s added to the pokedex.\n", pokemon.Name)
+		fmt.Println("You may now inspect it with the inspect command.")
 	} else {
 		fmt.Printf("%s already recorded in the pokedex!\n", pokemon.Name)
 	}
